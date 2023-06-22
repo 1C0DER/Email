@@ -9,7 +9,7 @@
 ### Usage
 1. Clone the repository or download the `send_email.py` file. 📥
 2. Open the terminal or command prompt and navigate to the directory where the script is located.
-3. Run the script using the following command:   `bash
+3. Run the script using the following command:   `
    python send_email.py`
 4. You will be prompted to enter your Gmail account password. Note that the password will not be displayed on the screen for security reasons.
 5. After entering the password, the script will establish a connection with the Gmail SMTP server and send the email.
