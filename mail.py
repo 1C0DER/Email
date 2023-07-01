@@ -74,5 +74,58 @@ smtp.quit()
 print('Email sent successfully :)')
 """
 
+import getpass
+import smtplib
+import datetime as dt
+import time
+
+def send_email():
+    HOST = "smtp.gmail.com"
+    PORT = 587
+    FROM_EMAIL = "d9006714@gmail.com"
+    TO_EMAIL = "ejiro006@gmail.com"
+    PASSWORD = getpass.getpass("Enter password: ")
+    MESSAGE = """Subject: Test drive
+    Heyyo Good morning Sir 
+
+    I hope you have finished filling the school documents
+
+    Your village people,
+    Testing testing 1,2,3"""
+
+smtp = smtplib.SMTP(HOST, PORT)
+
+status_code, response = smtp.ehlo()
+print(f"[*] Echoing the server: {status_code} {response}")
+
+
+status_code, response = smtp.starttls()
+print(f"[*] Starting TLS connection: {status_code} {response}")
+
+
+status_code, response = smtp.login(FROM_EMAIL, PASSWORD)
+print(f"[*] Logging in {status_code} {response}")
+
+send_time = dt.datetime(2023, 6, 26, 9, 00, 0)
+
+print(send_time.timestamp())
+
+print(time.time())
+
+x = time.sleep(send_time.timestamp() - time.time())
+print(x)
+
+smtp.sendmail(FROM_EMAIL, TO_EMAIL, MESSAGE)
+
+smtp.quit()
+
+print('Email sent successfully :)')
+
+send_email()
+
+
+
+
+
 
 
