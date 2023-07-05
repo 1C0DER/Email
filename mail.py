@@ -29,8 +29,10 @@ def send_email():
     status_code, response = smtp.login(from_email, password)
     print(f"[*] Logging in {status_code} {response}")
 
-    date_str = input("Enter date: (YYYY-MM-DD): ")
-    send_time = dt.datetime.now().strftime(date_str, 2023, 7, 5, 14, 30) + dt.timedelta(days=365)
+    #date_str = input("Enter date: (YYYY-MM-DD): ")
+    #send_time = dt.datetime.now().strftime(date_str, 2023, 7, 5, 14, 30) + dt.timedelta(days=365)
+
+    send_time = dt.datetime(2023, 7, 5, 15, 23, 0)
 
     print(send_time.timestamp())
 
