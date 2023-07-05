@@ -43,6 +43,6 @@ def send_email():
 
     smtp.quit()
 
-    print('Email sent successfully :)')
+    print('Email sent successfully: ')
 
 send_email()
