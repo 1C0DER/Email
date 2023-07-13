@@ -37,8 +37,7 @@ def send_email():
 
     print(time.time())
 
-    x = time.sleep(send_time - tnow)
-    print(x)
+    time.sleep(send_time - tnow)
 
     smtp.sendmail(from_email, to_email, message)
 
