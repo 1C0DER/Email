@@ -7,16 +7,13 @@ def request_pass():
     password = getpass.getpass("Enter password: ")
     return password
 
-def message_create(from_email, to_email, message):
-    message = """Subject: Test drive
-    Heyyo Good day bish 
-    
-    You have finally completed this you can collapse now
-    
-    Testing testing 1,2,3"""
+def message_create(from_email, to_email, subject, body):
+    message = f"Subject: {subject}\n\n{body}"
     return message
 
-def send_email(from_email, to_email, password, message, host="smtp.gmail.com", port=587):
+def send_email(from_email, to_email, password, subject, body, host="smtp.gmail.com", port=587):
+    message = message_create(from_email, to_email, subject, body)
+    
     try:
         smtp = smtplib.SMTP(host, port)
 
@@ -34,24 +31,23 @@ def send_email(from_email, to_email, password, message, host="smtp.gmail.com", p
         print('Email sent successfully: ') 
         
     except Exception as e:
-        print(f"Error error fix this error sending email immediately:{e}")  
+        print(f"Error error wee woo wee woo fix this error:{e}")  
 
-def delay_email(from_email, to_email, password, message):
-    message = message_create(from_email, to_email, message)
+def delay_email(from_email, to_email, password, subject, body):
     tnow = dt.datetime.now()      
-    send_time = tnow + dt.timedelta(minutes=2)#days=365)
+    send_time = tnow + dt.timedelta(days=365)
     print(send_time.timestamp())
     time.sleep((send_time - tnow).total_seconds())
-    send_email(from_email, to_email, password, message)
+    send_email(from_email, to_email, password, subject, body)
     
 if __name__ == '__main__':
     from_email = "d9006714@gmail.com"
     to_email = "nuttzack12@gmail.com"
     password = getpass.getpass("Enter password: ")
-    message = """Subject: Test drive
-    Heyyo Good day bish 
+    subject = """Test drive"""
+    body = """Heyyo Good day bish 
     
     You have finally completed this you can collapse now
     
     Testing testing 1,2,3"""
-    delay_email(from_email, to_email, password, message)   
+    delay_email(from_email, to_email, password, subject, body)   
