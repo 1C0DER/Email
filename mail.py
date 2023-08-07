@@ -37,40 +37,61 @@ def send_email(from_email, to_email, password, subject, body, host="smtp.gmail.c
         print('Email sent successfully: ') 
         
     except Exception as e:
-        print(f"Error error wee woo wee woo the message wont send:{e}")  
+        print(f"Error error wee woo wee woo the message wont send:{e}")
 
-def delay_email(from_email, to_email, password, subject, body):
+def send_reminder_7days(from_email, to_email, password, day7subject, day7body):
+    try:
+        tnow = dt.datetime.now()
+        send_time = tnow + dt.timedelta(minutes=1)
+        #(delay_days)
+        delay_seconds = (send_time - tnow).total_seconds() 
+        if delay_seconds > 0:
+            time.sleep(delay_seconds)
+        send_email(from_email, to_email, password, day7subject, day7body)
+    except Exception as e:
+        print(f"Error error wee woo wee woo the 7-day delay aint working:{e}")
+        
+def send_reminder_3days(from_email, to_email, password, day3subject, day3body):
+    try:
+        tnow = dt.datetime.now()
+        send_time = tnow + dt.timedelta(minutes=1)
+        delay_seconds = (send_time - tnow).total_seconds() 
+        if delay_seconds > 0:
+            time.sleep(delay_seconds)
+        send_email(from_email, to_email, password, day3subject, day3body)
+    except Exception as e:
+        print(f"Error error wee woo wee woo the 3-day delay aint working:{e}")
+        
+def send_reminder_Dday(from_email, to_email, password, subject, body):
     try:
         tnow = dt.datetime.now()      
-        send_time = tnow + dt.timedelta(days=365)
+        send_time = tnow + dt.timedelta(minutes=1)
+        #(days=365)
         print(send_time.timestamp())
         time.sleep((send_time - tnow).total_seconds())
         send_email(from_email, to_email, password, subject, body)
     except Exception as e:
-        print(f"Error error wee woo wee woo the delay wont go through:{e}") 
-
-def send_reminder(from_email, to_email, password, delay_days=358):
+        print(f"Error error wee woo wee woo the d-day wont go through:{e}")   
+        
+def send_now(from_email, to_email, password, sendnowsubject, sendnowbody):
     try:
-        tnow = dt.datetime.now()
-        send_time = tnow + dt.timedelta(days=358)
-        reminder_subject = f"Reminder:"
-        reminder_body = f"Heyyo Good day\nYou have yet to refresh your subsctiption.\nIf it has not been done by {delay_days}\nIt shall be taken away fron you:\n\n"   
-        delay_seconds = (send_time - tnow).total_seconds() 
-        if delay_seconds > 0:
-            time.sleep(delay_seconds)
-        send_email(from_email, to_email, password, reminder_subject, reminder_body)
+        send_email(from_email, to_email, password, sendnowsubject, sendnowbody)
     except Exception as e:
-        print(f"Error error wee woo wee woo the 7-day delay aint working:{e}")  
+        print(f"Error error wee woo wee woo the first message wont send:{e}")
     
 if __name__ == '__main__':
     from_email = "d9006714@gmail.com"
     to_email = "nuttzack12@gmail.com"
     password = getpass.getpass("Enter password: ")
-    subject = """Test drive"""
-    body = """Heyyo Good day bish 
-    
-    You have finally completed this you can collapse now
-    
-    Testing testing 1,2,3"""
-    delay_email(from_email, to_email, password, subject, body)   
-    send_reminder(from_email, to_email, password, delay_days=358)
+    sendnowbody = "Heyyo Good day customer\nYou have sucessfully subcribed to ..... thank you for choosing us\n\n" 
+    sendnowsubject = """Congratulations"""
+    day7subject = """Reminder"""
+    day7body = "Heyyo Good day\nYou have yet to refresh your subsctiption.\nYou have within the next 7 days to re-subscribe\nOr else it shall be taken away fron you:\n\n" 
+    day3subject = """Reminder"""
+    day3body = "Heyyo Good day\nYou have yet to refresh your subsctiption.\nYou have within the next 3 days to re-subscribe\nOr elseIt shall be taken away fron you:\n\n" 
+    subject = """Reminder"""
+    body = "Heyyo Good day\nYou have yet to refresh your subsctiption.\nIf it has not been done by the end of today\nIt shall be taken away fron you:\n\n" 
+    send_now(from_email, to_email, password, sendnowsubject, sendnowbody) 
+    send_reminder_7days(from_email, to_email, password, day7subject, day7body)
+    send_reminder_3days(from_email, to_email, password, day3subject, day3body)
+    send_reminder_Dday(from_email, to_email, password, subject, body) 
